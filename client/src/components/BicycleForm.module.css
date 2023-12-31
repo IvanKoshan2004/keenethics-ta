@@ -1,0 +1,26 @@
+.bicycleForm {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 10px;
+    width: 100%;
+    column-gap: 11px;
+    font-size: 12px;
+    color: var(--text-color-light);
+}
+.bicycleDescription {
+    resize: none;
+    grid-column: span 2;
+    grid-row: span 3;
+}
+.formInput {
+    border: none;
+    width: 100%;
+    padding: 5px 16px 5px 16px;
+    border-radius: 5px;
+    background-color: var(--background-color-lighter);
+}
+.validationErrorMessage {
+    color: crimson;
+    grid-column: span 2;
+}

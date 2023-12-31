@@ -1,0 +1,4 @@
+.verticalDivider {
+    width: 2px;
+    background-color: var(--divider-color);
+}

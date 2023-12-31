@@ -1,0 +1,13 @@
+.selectionContainer {
+    position: relative;
+}
+.selectionList {
+    position: absolute;
+    z-index: 1;
+    list-style: none;
+    background-color: var(--background-color-lighter);
+    border: 1px solid black;
+}
+.selectionItem:hover {
+    background-color: var(--background-color-hover);
+}

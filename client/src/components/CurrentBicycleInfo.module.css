@@ -1,0 +1,8 @@
+.infoContainer {
+    margin: 10px;
+    font-size: 14px;
+    overflow-y: auto;
+}
+.infoHeader {
+    font-size: 18px;
+}

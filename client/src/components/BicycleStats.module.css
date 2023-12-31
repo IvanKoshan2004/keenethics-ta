@@ -1,0 +1,11 @@
+.averageStatValue {
+    font-weight: 700;
+}
+
+.statsContainer {
+    margin: 10px;
+    font-size: 14px;
+}
+.statsHeader {
+    font-size: 18px;
+}

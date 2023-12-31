@@ -1,0 +1,63 @@
+.bicycleContainer {
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    background-color: var(--background-color-lighter);
+    padding: 10px 16px;
+    margin: 12px 12px 0 12px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.bicycleContainer:hover:not(:global(.selectedBicycle)) {
+    background-color: var(--background-color-hover);
+}
+
+.bicycleContainerRightColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.bicycleContainerLeftColumn {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.bicycleId {
+    font-size: 8px;
+    color: var(--text-color-light);
+}
+.bicycleName {
+    font-weight: 700;
+}
+.bicycleStatusContainer {
+    display: flex;
+    gap: 18px;
+    line-height: 22px;
+}
+.bicyclePrice {
+    font-size: 24px;
+}
+:global(.selectedBicycle) {
+    background-color: #b0b0b0;
+}
+
+:global(.availableBicycle) {
+    border-color: #6fcf97;
+}
+
+:global(.busyBicycle) {
+    border-color: #f2994a;
+}
+
+:global(.unavailableBicycle) {
+    border-color: rgba(235, 87, 87, 0.5);
+}
+:global(.halfOpacity) {
+    opacity: 0.5;
+}

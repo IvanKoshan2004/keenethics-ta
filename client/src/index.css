@@ -1,5 +1,15 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Saira+Stencil+One&family=Saira:wght@400;700&display=swap");
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+:root {
+    font-family: "Rubik", sans-serif;
+    font-family: "Saira", sans-serif;
+    --background-color: #696969;
+    --background-color-lighter: #e8e8e8;
+    --background-color-hover: #d0d0d0;
+    --text-color-light: #717171;
+    --divider-color: #c4c4c4;
 }

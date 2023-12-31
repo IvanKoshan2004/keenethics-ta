@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=Saira+Stencil+One&display=swap");
+.title {
+    font-size: 24px;
+    font-family: "Rubik", sans-serif;
+    font-family: "Saira Stencil One", sans-serif;
+    color: #e8e8e8;
+    line-height: 37.78px;
+}
+.container {
+    padding: 4px 16px 4px 16px;
+    background-color: var(--background-color);
+}

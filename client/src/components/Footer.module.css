@@ -1,0 +1,19 @@
+.footer {
+    background-color: var(--background-color);
+    padding: 10px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.label {
+    color: #cbcaca;
+    line-height: 31.48px;
+    font-weight: 400;
+    font-size: 20px;
+}
+.devName {
+    color: #ffffff;
+    line-height: 31.48px;
+    font-weight: 400;
+    font-size: 20px;
+}
