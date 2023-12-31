@@ -32,17 +32,18 @@ function BicycleForm() {
         const fetchBicycles = async () => {
             try {
                 dispatch({ type: "bicycles/saving" });
-                const isValidated =
-                    validateStringLength(name) &&
-                    validateStringLength(type) &&
-                    validateStringLength(color) &&
-                    validateIsPositiveNumber(wheelSize) &&
-                    validateIsPositiveNumber(price) &&
-                    validateStringLength(description);
-                if (!isValidated) {
-                    throw Error(
-                        "Invalid input, text fields should be at least 5 charactes long, and number fields should not contain letters"
-                    );
+                if (
+                    !(
+                        validateStringLength(name, 5) &&
+                        validateStringLength(type, 5) &&
+                        validateStringLength(color, 5) &&
+                        validateStringLength(description, 5)
+                    )
+                ) {
+                    throw Error("Invalid input, text fields should be at least 5 charactes long");
+                }
+                if (!(validateIsPositiveNumber(wheelSize) && validateIsPositiveNumber(price))) {
+                    throw Error("Invalid input, number fields should not contain letters");
                 }
                 const res = await fetch(`${API_BASE_URL}/bicycle`, {
                     method: "POST",
