@@ -1,6 +1,10 @@
 import { model, Schema } from "mongoose";
 
 const BicycleSchema = new Schema({
+    id: {
+        type: String,
+        unique: true,
+    },
     name: String,
     type: String,
     color: String,
