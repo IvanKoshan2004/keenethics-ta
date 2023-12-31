@@ -1,12 +1,8 @@
-import { useBicycleContext } from "../context/BicycleContext";
+import { useBicycleStatsContext } from "../context/BicycleStatsContext";
 import styles from "./BicycleStats.module.css";
 
 function BicycleStats() {
-    const { bicycles } = useBicycleContext();
-    const totalBikes = bicycles.length;
-    const availableBikes = bicycles.filter((el) => el.status === "available").length;
-    const bookedBikes = bicycles.filter((el) => el.status === "busy").length;
-    const averageBikeCost = bicycles.length !== 0 ? (bicycles.reduce((acc, el) => acc + el.price, 0) / totalBikes).toFixed(2) : 0;
+    const { totalBikes, availableBikes, bookedBikes, averageBikeCost } = useBicycleStatsContext();
     return (
         <div className={styles.statsContainer}>
             <h3 className={styles.statsHeader}>STATISTICS</h3>

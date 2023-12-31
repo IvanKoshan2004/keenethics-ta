@@ -3,6 +3,7 @@ import Button from "../ui/Button";
 import { useEffect, useState } from "react";
 import { useBicycleContext } from "../context/BicycleContext";
 import { API_BASE_URL } from "../constants";
+import { useBicycleStatsContext } from "../context/BicycleStatsContext";
 
 function validateStringLength(string, min = 0, max = Infinity) {
     return string.length <= max && string.length >= min;
@@ -11,7 +12,8 @@ function validateIsPositiveNumber(string) {
     return /[0-9]+/.test(string);
 }
 function BicycleForm() {
-    const { isSaving, isSavingError, dispatch } = useBicycleContext();
+    const { isSaving, savingErrorMessage, dispatch } = useBicycleContext();
+    const { fetchStats } = useBicycleStatsContext();
 
     const [name, setName] = useState("");
     const [type, setType] = useState("");
@@ -20,11 +22,10 @@ function BicycleForm() {
     const [price, setPrice] = useState("");
     const [id, setId] = useState("");
     const [description, setDescription] = useState("");
-    const [isValidationError, setIsValidationError] = useState(false);
-
+    const [isSavingError, setIsSavingError] = useState(false);
     useEffect(() => {
-        setIsValidationError(false);
-    }, [name, type, color, wheelSize, price, description]);
+        setIsSavingError(false);
+    }, [name, type, color, wheelSize, price, description, dispatch]);
 
     function handleSave(e) {
         e.preventDefault();
@@ -39,8 +40,9 @@ function BicycleForm() {
                     validateIsPositiveNumber(price) &&
                     validateStringLength(description);
                 if (!isValidated) {
-                    setIsValidationError(true);
-                    throw Error();
+                    throw Error(
+                        "Invalid input, text fields should be at least 5 charactes long, and number fields should not contain letters"
+                    );
                 }
                 const res = await fetch(`${API_BASE_URL}/bicycle`, {
                     method: "POST",
@@ -58,11 +60,13 @@ function BicycleForm() {
                 });
                 const { success, data } = await res.json();
                 if (!success) {
-                    throw Error();
+                    throw Error("Error while saving the bicycle");
                 }
                 dispatch({ type: "bicycles/saved", payload: { bicycle: data.bicycle } });
+                fetchStats();
             } catch (err) {
-                dispatch({ type: "bicycles/savingFailed" });
+                dispatch({ type: "bicycles/savingFailed", payload: { message: err.message } });
+                setIsSavingError(true);
             }
         };
         fetchBicycles();
@@ -76,6 +80,7 @@ function BicycleForm() {
         setPrice("");
         setId("");
         setDescription("");
+        setIsSavingError(false);
     }
     return (
         <form className={`${styles.bicycleForm} ${isSaving && "halfOpacity"}`}>
@@ -136,12 +141,7 @@ function BicycleForm() {
             ></textarea>
             <Button onClick={handleSave}>SAVE</Button>
             <Button onClick={handleClear}>CLEAR</Button>
-            {isValidationError && (
-                <p className={styles.validationErrorMessage}>
-                    Invalid input, text field should be at least 5 characters long and number fields should not contain text
-                </p>
-            )}
-            {isSavingError && <p className={styles.validationErrorMessage}>Error happened while saving the bicycle</p>}
+            {isSavingError && <p className={styles.errorMessage}>{savingErrorMessage}</p>}
         </form>
     );
 }

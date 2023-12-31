@@ -4,10 +4,12 @@ import { useBicycleContext } from "../context/BicycleContext";
 import CrossIcon from "../ui/icons/CrossIcon";
 import styles from "./BicycleListItem.module.css";
 import Selection from "../ui/Selection";
+import { useBicycleStatsContext } from "../context/BicycleStatsContext";
 
 function BicycleListItem({ bicycle }) {
     const { _id, name, type, color, price, status: loadedBicycleStatus } = bicycle;
     const { currentBicycle, dispatch } = useBicycleContext();
+    const { fetchStats } = useBicycleStatsContext();
     const [status, setStatus] = useState(loadedBicycleStatus);
     const halfOpacityClass = status === "unavailable" ? "halfOpacity" : "";
     useEffect(() => {
@@ -29,10 +31,12 @@ function BicycleListItem({ bicycle }) {
                     method: "DELETE",
                 });
                 const { success, data } = await res.json();
+                console.log(success, data);
                 if (!success) {
                     throw Error();
                 }
                 dispatch({ type: "bicycles/deleted", payload: { id: data.bicycle._id } });
+                fetchStats();
             } catch (err) {
                 dispatch({ type: "bicycles/deletionFailed" });
             }
@@ -57,6 +61,7 @@ function BicycleListItem({ bicycle }) {
                 dispatch({ type: "bicycles/statusChanged", payload: { id: _id, status: data.bicycle.status } });
                 dispatch({ type: "bicycles/selected", payload: { id: _id } });
                 setStatus(value);
+                fetchStats();
             } catch (err) {}
         };
         changeStatus();

@@ -8,7 +8,7 @@ const initialState = {
     isLoading: false,
     isLoadingError: false,
     isSaving: false,
-    isSavingError: false,
+    savingErrorMessage: "",
     isDeleting: false,
     isDeletingError: false,
 };
@@ -21,11 +21,11 @@ function reducer(state, action) {
         case "bicycles/loadingFailed":
             return { ...state, isLoading: true, isError: true };
         case "bicycles/saving":
-            return { ...state, isSaving: true, isSavingError: false };
+            return { ...state, isSaving: true, savingErrorMessage: "" };
         case "bicycles/saved":
             return { ...state, isSaving: false, bicycles: [...state.bicycles, action.payload.bicycle] };
         case "bicycles/savingFailed":
-            return { ...state, isSaving: false, isSavingError: true };
+            return { ...state, isSaving: false, savingErrorMessage: action.payload.message };
         case "bicycles/statusChanged":
             return {
                 ...state,
@@ -46,7 +46,7 @@ function reducer(state, action) {
         case "bicycles/deleted":
             return { ...state, isDeleting: false, bicycles: state.bicycles.filter((el) => el._id !== action.payload.id) };
         case "bicycles/deletionFailed":
-            return { ...state, isDeleting: false, isDeletingError: true, currentBicycle: action.payload.bicycle };
+            return { ...state, isDeleting: false, isDeletingError: true };
         default:
             throw Error(`Unknown action type: ${action.type}`);
     }
@@ -64,7 +64,7 @@ export function BicycleProvider({ children }) {
                 isLoadingError: state.isLoadingError,
                 isError: state.isError,
                 isSaving: state.isSaving,
-                isSavingError: state.isSavingError,
+                savingErrorMessage: state.savingErrorMessage,
                 dispatch,
             }}
         >

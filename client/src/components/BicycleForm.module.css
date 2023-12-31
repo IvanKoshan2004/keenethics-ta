@@ -20,7 +20,7 @@
     border-radius: 5px;
     background-color: var(--background-color-lighter);
 }
-.validationErrorMessage {
+.errorMessage {
     color: crimson;
     grid-column: span 2;
 }
