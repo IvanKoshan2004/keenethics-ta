@@ -9,7 +9,11 @@ function validateStringLength(string, min = 0, max = Infinity) {
     return string.length <= max && string.length >= min;
 }
 function validateIsPositiveNumber(string) {
-    return /[0-9]+/.test(string);
+    return /^[0-9]+$/.test(string);
+}
+function validateId(id) {
+    console.log(id, /^[0-9a-zA-Z]{3}-[0-9a-zA-Z]{3}$/.test(id));
+    return /^[0-9a-zA-Z]{3}-[0-9a-zA-Z]{3}$/.test(id);
 }
 function BicycleForm() {
     const { isSaving, savingErrorMessage, dispatch } = useBicycleContext();
@@ -45,16 +49,23 @@ function BicycleForm() {
                 if (!(validateIsPositiveNumber(wheelSize) && validateIsPositiveNumber(price))) {
                     throw Error("Invalid input, number fields should not contain letters");
                 }
+                if (id !== "" && !validateId(id)) {
+                    throw Error("Invalid input, invalid id format");
+                }
+                const payload = {
+                    name,
+                    type,
+                    color,
+                    description,
+                    wheelSize,
+                    price,
+                };
+                if (id) {
+                    payload["id"] = id;
+                }
                 const res = await fetch(`${API_BASE_URL}/bicycle`, {
                     method: "POST",
-                    body: JSON.stringify({
-                        name,
-                        type,
-                        color,
-                        description,
-                        wheelSize,
-                        price,
-                    }),
+                    body: JSON.stringify(payload),
                     headers: {
                         "Content-Type": "application/json",
                     },
@@ -128,7 +139,7 @@ function BicycleForm() {
             <input
                 className={styles.formInput}
                 type="text"
-                placeholder="ID (slug): XXXXXXXXX"
+                placeholder="ID (slug): XXX-XXX"
                 value={id}
                 onChange={(e) => setId(e.target.value)}
                 disabled={isSaving}

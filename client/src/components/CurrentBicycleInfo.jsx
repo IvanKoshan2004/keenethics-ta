@@ -3,12 +3,12 @@ import styles from "./CurrentBicycleInfo.module.css";
 
 function CurrentBicycleInfo() {
     const { currentBicycle } = useBicycleContext();
-    const { _id, name, type, status, color, wheelSize, price, description } = currentBicycle;
+    const { id, name, type, status, color, wheelSize, price, description } = currentBicycle;
     return (
         <div className={styles.infoContainer}>
             <h3 className={styles.infoHeader}>SELECTED BIKE</h3>
             <p>
-                ID: <span className={styles.id}>{_id}</span>
+                ID: <span className={styles.id}>{id}</span>
             </p>
             <p>
                 Name: <span className={styles.name}>{name}</span>

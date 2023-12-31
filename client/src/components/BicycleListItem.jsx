@@ -7,7 +7,7 @@ import Selection from "../ui/Selection";
 import { useBicycleStatsContext } from "../context/BicycleStatsContext";
 
 function BicycleListItem({ bicycle }) {
-    const { _id, name, type, color, price, status: loadedBicycleStatus } = bicycle;
+    const { _id, id, name, type, color, price, status: loadedBicycleStatus } = bicycle;
     const { currentBicycle, dispatch } = useBicycleContext();
     const { fetchStats } = useBicycleStatsContext();
     const [status, setStatus] = useState(loadedBicycleStatus);
@@ -31,7 +31,6 @@ function BicycleListItem({ bicycle }) {
                     method: "DELETE",
                 });
                 const { success, data } = await res.json();
-                console.log(success, data);
                 if (!success) {
                     throw Error();
                 }
@@ -83,7 +82,7 @@ function BicycleListItem({ bicycle }) {
                 <p className={halfOpacityClass}>
                     <span className={styles.bicycleName}>{name}</span> - {type} ({color})
                 </p>
-                <p className={`${styles.bicycleId} ${halfOpacityClass}`}>ID: XXXXXXXXXXXX</p>
+                <p className={`${styles.bicycleId} ${halfOpacityClass}`}>ID: {id}</p>
                 <div className={`${styles.bicycleStatusContainer}`}>
                     <p>STATUS:</p>
                     <Selection
