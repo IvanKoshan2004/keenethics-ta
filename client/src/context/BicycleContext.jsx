@@ -19,7 +19,7 @@ function reducer(state, action) {
         case "bicycles/loaded":
             return { ...state, isLoading: false, bicycles: action.payload.bicycles };
         case "bicycles/loadingFailed":
-            return { ...state, isLoading: true, isError: true };
+            return { ...state, isLoading: false, isLoadingError: true };
         case "bicycles/saving":
             return { ...state, isSaving: true, savingErrorMessage: "" };
         case "bicycles/saved":
