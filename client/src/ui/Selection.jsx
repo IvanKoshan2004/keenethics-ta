@@ -22,7 +22,7 @@ function Selection({ options, value, onChange, onClick }) {
             {isOpen && (
                 <ul className={styles.selectionList}>
                     {options.map((el) => (
-                        <SelectionOption value={el.value} option={el.option} onSelect={handleSelect} />
+                        <SelectionOption key={el.value} value={el.value} option={el.option} onSelect={handleSelect} />
                     ))}
                 </ul>
             )}
