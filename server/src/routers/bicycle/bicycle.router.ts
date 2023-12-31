@@ -7,9 +7,11 @@ import { getBicycleById } from "./controllers/get-bicycle-by-id.controller";
 import { changeBicycleStatus } from "./controllers/change-bicycle-status.controller";
 import { deleteBicycle } from "./controllers/delete-bicycle";
 import { changeBicycleStatusDto } from "./dtos/change-bicycle-status.dto";
+import { getBicyclesStats } from "./controllers/get-bicycles-stats.controller";
 
 const bicycleRouter = Router();
 bicycleRouter.get("", getAllBicycles);
+bicycleRouter.get("/stats", getBicyclesStats);
 bicycleRouter.get("/:id", getBicycleById);
 bicycleRouter.post("", validate(createBicycleDto), createBicycle);
 bicycleRouter.patch("/:id", validate(changeBicycleStatusDto), changeBicycleStatus);
